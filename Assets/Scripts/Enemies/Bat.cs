@@ -12,10 +12,8 @@ public class Bat : Enemy
     void Awake() {
         hitpoints = 10;
         damage = 10;
-        range = 10;
         speed = 10;        
         attackAnimationDelay = .7f;
-
     }
 
 

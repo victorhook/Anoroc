@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 
     // flags for movement    
     private bool isJumping;
+    private bool isCrouching;
     private bool isMoving;
     private bool isGrounded;
     private bool isShooting;
@@ -112,8 +113,13 @@ public class PlayerController : MonoBehaviour {
             dirX = Input.GetAxisRaw("Horizontal");
             isMoving = dirX != 0;
 
+            if (Input.GetKeyDown(KeyCode.C)) {
+                isCrouching = !isCrouching;
+            }
+            
             animator.SetBool("isMoving", isMoving);
-
+            animator.SetBool("isCrouching", isCrouching);
+            
             if (facingRight && dirX < 0) {
                 Flip();
             } else if (!facingRight && dirX > 0) {
@@ -129,7 +135,6 @@ public class PlayerController : MonoBehaviour {
                     animator.SetTrigger("takeOff");
                     animator.SetBool("isJumping", true);
                     jumps++;
-
                 }
             }
 

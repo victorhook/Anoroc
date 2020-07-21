@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4e0d411bbec7599b062418ca91d610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfx: {fileID: 5982501166673912949, guid: 8ecc522d99eeab95087c075f24ba6d17, type: 3}
   xp: 0
   points: 10
   weapon: {fileID: 0}

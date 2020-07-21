@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 700696949531057892}
   - component: {fileID: 700696949531057899}
   m_Layer: 0
-  m_Name: antidote_blue
+  m_Name: AntidoteBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsWorth: 10
+  sfx: {fileID: 873326969143552356, guid: 80f2aad0786d09b75a5bd07705f8de8f, type: 3}
   particleSystem: {fileID: 700696949809206419}
 --- !u!1 &700696949809206417
 GameObject:

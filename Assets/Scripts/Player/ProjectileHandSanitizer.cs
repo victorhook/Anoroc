@@ -26,8 +26,6 @@ public class ProjectileHandSanitizer : MonoBehaviour
                                         transform.up, distance, whatIsSolid);
         if (hitInfo.collider != null) {
             if (hitInfo.collider.CompareTag("Enemy")) {
-                print("hit");
-
                 hitInfo.collider.GetComponent<Enemy>().TakeDamage(damage);
             }
             Die();

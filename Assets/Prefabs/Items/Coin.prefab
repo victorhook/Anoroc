@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsWorth: 30
+  sfx: {fileID: 5982501166673912949, guid: 8ecc522d99eeab95087c075f24ba6d17, type: 3}
 --- !u!61 &8205773552686714974
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeHandler : MonoBehaviour
-{
+public class TimeHandler : MonoBehaviour {
+
     private float msCounter;
     private int minutes, seconds;
     [SerializeField] private Text uiText;
+
     void Start()
     {
         msCounter = 0;

@@ -7,6 +7,7 @@ public abstract class Item : MonoBehaviour {
     private Text uiText;
     private bool pickUpAllowed;
 
+    public SFX sfx;
 
     void Awake() {
         uiText = GameObject.Find("InteractText").GetComponent<Text>();
@@ -57,6 +58,7 @@ public abstract class Item : MonoBehaviour {
     }
 
     protected void DeleteItem() {
+        Instantiate(sfx, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

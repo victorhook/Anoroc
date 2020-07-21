@@ -98,10 +98,21 @@ PrefabInstance:
       propertyPath: pointsWorth
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 700696949531057899, guid: 63dfaca82b38cc988b99d1083d878e4d,
+        type: 3}
+      propertyPath: SFX
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 700696949531057899, guid: 63dfaca82b38cc988b99d1083d878e4d,
+        type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 873326969143552356, guid: 80f2aad0786d09b75a5bd07705f8de8f,
+        type: 3}
     - target: {fileID: 700696949531057903, guid: 63dfaca82b38cc988b99d1083d878e4d,
         type: 3}
       propertyPath: m_Name
-      value: antidote_red
+      value: AntidoteRed
       objectReference: {fileID: 0}
     - target: {fileID: 700696949809206380, guid: 63dfaca82b38cc988b99d1083d878e4d,
         type: 3}
