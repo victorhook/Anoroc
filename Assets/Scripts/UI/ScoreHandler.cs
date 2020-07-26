@@ -7,10 +7,10 @@ public class ScoreHandler : MonoBehaviour {
  
     [SerializeField] private Text uiText;
 
-    private int score;
+    private static int score;
 
     void Start() {
-        score = 0;
+        score = PlayerStats.Score;
         UpdateUI();
     }
 
@@ -25,6 +25,10 @@ public class ScoreHandler : MonoBehaviour {
 
     private void UpdateUI() {
         uiText.text = "Score: " + score.ToString();
+    }
+
+    public static void SaveStaticVariables() {
+        PlayerStats.Score = score;
     }
 
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class HandSanitizer : MonoBehaviour
 {
     public GameObject projectile;
+    public PlayerController player;
     private Transform shotPoint;
     private float timeBetweenShots;
     public float startTimeBetweenShots;
@@ -13,18 +14,16 @@ public class HandSanitizer : MonoBehaviour
         shotPoint = transform.Find("ShotPoint");
     }
 
-    void Update()
-    {
+    void Update() {
 
-        if (timeBetweenShots <= 0) {
+        if (timeBetweenShots >= player.GetShootDelay()) {
             if (Input.GetMouseButtonDown(0)) {
                 Instantiate(projectile, shotPoint.position, shotPoint.rotation);
-                timeBetweenShots = startTimeBetweenShots;
+                timeBetweenShots = 0;
             }
         } else {
-            timeBetweenShots -= Time.deltaTime;
+            timeBetweenShots += Time.deltaTime;
         }
-
     }
 
 }

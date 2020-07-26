@@ -4,21 +4,10 @@ using UnityEngine;
 
 using static Enemy;
 
-public class Bat : Enemy
-{
-    private float timeBetweenShots;
-    public float startTimeBetweenShots;
-
-    void Awake() {
-        hitpoints = 10;
-        damage = 10;
-        speed = 10;        
-        attackAnimationDelay = .7f;
-    }
-
+public class Bat : Enemy {
 
     protected override void Attack() {
-        animator.SetTrigger("SpitAttack");
+        //animator.SetTrigger("SpitAttack");
         Invoke("Spit", attackAnimationDelay);
     }
 

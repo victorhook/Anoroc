@@ -4,18 +4,10 @@ using UnityEngine;
 
 using static Enemy;
 
-public class Man : Enemy
-{
+public class Man : Enemy {
 
-    private float timeBetweenShots;
-    public float startTimeBetweenShots;
-
-    void Awake() {
-        hitpoints = 10;
-        damage = 10;
-        range = 10;
-        speed = 10;        
-        attackAnimationDelay = .7f;
+    void Start() {
+        facingRight = true;
     }
 
     protected override void Attack() {
@@ -26,6 +18,5 @@ public class Man : Enemy
     private void Sneeze() {
         Instantiate(projectile, shotPoint.position, Quaternion.identity);
     }
-
 
 }

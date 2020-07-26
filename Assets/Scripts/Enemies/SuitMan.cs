@@ -4,18 +4,7 @@ using UnityEngine;
 
 using static Enemy;
 
-public class SuitMan : Enemy
-{
-    private float timeBetweenShots;
-    public float startTimeBetweenShots;
-
-    void Awake() {
-        damage = 10;
-        range = 10;
-        speed = 10;        
-        attackAnimationDelay = .7f;
-    }
-
+public class SuitMan : Enemy {
 
     protected override void Attack() {
         animator.SetTrigger("MoneyAttack");

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 using static LevelHandler;
 
@@ -42,7 +43,12 @@ public class SkillButton : MonoBehaviour {
     }
 
     private void UpdateUI() {
-        uiText.text = levelHandler.GetLevel(skill).ToString();
+        try {
+            uiText.text = levelHandler.GetLevel(skill).ToString();
+        } catch (NullReferenceException){
+
+        }
+
     }
 
     public void Click() {

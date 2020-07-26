@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 using static PlayerController;
 
-public class LevelHandler : MonoBehaviour
-{
-    [SerializeField] private int experience, nextLevelExp, level;
+public class LevelHandler : MonoBehaviour {
+
+    [SerializeField] private static int experience, nextLevelExp, level;
     [SerializeField] private Text levelText, xpText, levelUpText;
     [SerializeField] private Slider xpSlider;
 
@@ -15,8 +15,8 @@ public class LevelHandler : MonoBehaviour
     [SerializeField] private PlayerController player;
 
     private Animator levelUpAnimator;
-    private int[] skills;
-    private int unspentPoints;
+    private static int[] skills;
+    private static int unspentPoints;
 
     public enum Skills {
         speed,
@@ -27,28 +27,35 @@ public class LevelHandler : MonoBehaviour
     };
 
     // increase values for skill-levelup
-    private const float SPEED_INCREASE = 10f;
+    private const float SPEED_INCREASE = 5f;
     private const float JUMP_HEIGHT_INCREASE = 10f;
     private const int HITPOINTS_INCREASE = 20;
-    private const int DAMAGE_INCREASE = 5;
+    private const float SHOOT_SPEED_INCREASE = .15f;
     // double jump works as follows:
     // skill 1: no doublejump,
     // skill 2: one doublejump,
     // skill 3: two doublejumps
 
-    void Awake() {
-        skills = new int[5] {1, 1, 1, 1, 1};
+    private void InitSkills() {
+        skills        = PlayerStats.Skills;
+        unspentPoints = PlayerStats.UnspentPoints;
+        experience    = PlayerStats.Experience;
+        nextLevelExp  = PlayerStats.NextLevelExp;
+        level         = PlayerStats.Level;
+    }
+
+    public static void SaveStaticVariables() {
+        PlayerStats.Skills = skills;
+        PlayerStats.UnspentPoints = unspentPoints;
+        PlayerStats.Experience = experience;
+        PlayerStats.NextLevelExp = nextLevelExp;
+        PlayerStats.Level = level;
     }
 
     void Start() {
-        unspentPoints  = 0;
-        experience     = 0;
-        nextLevelExp   = 100;
-        level          = 1;
-
+        InitSkills();
         xpSlider.minValue = 0;
         xpSlider.maxValue = nextLevelExp;
-
         levelUpAnimator = levelUpText.GetComponent<Animator>();
 
         UpdateUI();
@@ -63,7 +70,8 @@ public class LevelHandler : MonoBehaviour
     /* experience gained! */
     public void Increase(int xp) {
         experience += xp;
-
+        print("Current xp: " + experience.ToString());
+        print("xp gained: " + xp.ToString());
         if (experience >= nextLevelExp) {
             LevelUp();
         }
@@ -73,7 +81,7 @@ public class LevelHandler : MonoBehaviour
     
 
     private void LevelUp() {
-
+        print("Level up!");
         levelUpAnimator.SetTrigger("LevelUp");
 
         // get remainder of exp for next level
@@ -111,7 +119,7 @@ public class LevelHandler : MonoBehaviour
                 player.IncreaseJumpHeight(JUMP_HEIGHT_INCREASE);
                 break;
             case (int) Skills.shooting:
-                player.IncreaseDamage(DAMAGE_INCREASE);
+                player.IncreaseShootSpeed(SHOOT_SPEED_INCREASE);
                 break;
             case (int) Skills.doubleJump:
                 player.IncreaseDoubleJump();

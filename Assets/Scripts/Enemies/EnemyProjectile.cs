@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyProjectile : MonoBehaviour
-{
+public abstract class EnemyProjectile : MonoBehaviour {
+
     [SerializeField] protected float speed;
     [SerializeField] protected float lifeTime;
     [SerializeField] protected float distance;
@@ -28,7 +28,7 @@ public abstract class EnemyProjectile : MonoBehaviour
 
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, 
                                         transform.up, distance, whatIsSolid);
-
+        
         if (hitInfo.collider != null) {
             if (hitInfo.collider.CompareTag("player")) {
                 hitInfo.collider.GetComponent<PlayerController>().TakeDamage(damage);

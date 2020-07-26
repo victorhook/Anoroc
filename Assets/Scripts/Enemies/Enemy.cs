@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class Enemy : MonoBehaviour {
 
@@ -9,13 +10,13 @@ public abstract class Enemy : MonoBehaviour {
     public GameObject itemDroppedOnDeath;
     public Transform shotPoint;
 
-    protected float attackAnimationDelay;
+    public float attackAnimationDelay;
     public float attackDelay;
     public int xpWorth;
+    public bool canMove;
 
     [SerializeField] protected int damage;
     [SerializeField] protected float range;
-
     [SerializeField] protected int hitpoints;
     [SerializeField] protected float speed;
 
@@ -24,6 +25,7 @@ public abstract class Enemy : MonoBehaviour {
 
     private float dirX;
     private bool isMoving;
+    protected bool facingRight;
     private bool attackingPlayer;
     private float secsSinceLastAttack;
     private Transform playerPos;
@@ -31,8 +33,7 @@ public abstract class Enemy : MonoBehaviour {
 
     public LayerMask hitMask;
     
-
-    void Start() {
+    void Awake() {
         animator = GetComponent<Animator>(); 
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         playerPos = player.GetComponent<Transform>();
@@ -41,7 +42,6 @@ public abstract class Enemy : MonoBehaviour {
         range = 10;
         attackDelay = 2;
         speed = 1;
-
     }
 
     void Update() {
@@ -54,6 +54,17 @@ public abstract class Enemy : MonoBehaviour {
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, directionToPlayer,
                                                  range, hitMask);
         dirX = (directionToPlayer.x < 0) ? -1 : 1;
+        
+
+        if (Math.Abs(directionToPlayer.x) > 1) {
+            if (facingRight && dirX < 0) {
+                Flip();
+            } else if (!facingRight && dirX > 0) {
+                Flip();
+            }
+        }
+
+        
 
         if (hitInfo) {
             // If the player is within range, we start chasing him!
@@ -66,8 +77,10 @@ public abstract class Enemy : MonoBehaviour {
 
         
         if (attackingPlayer) {
-            isMoving = true;
-
+            if (canMove) {
+                isMoving = true;
+            }
+            
             // Checking if it's time for a new attack or if we should wait some more.
             secsSinceLastAttack += Time.deltaTime;
             if (secsSinceLastAttack >= attackDelay) {
@@ -81,10 +94,10 @@ public abstract class Enemy : MonoBehaviour {
 
     void FixedUpdate() {
         if (isMoving) {
-            rb.velocity = new Vector2(dirX * speed, rb.velocity.y);
+            rb.velocity = new Vector2(dirX * speed, 0);
         }
         else {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, 0);
         }
     }
 
@@ -109,6 +122,13 @@ public abstract class Enemy : MonoBehaviour {
         if (hitpoints <= 0) {
             Die();
         }
+    }
+
+    private void Flip() {
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+        facingRight = !facingRight;
     }
 
     protected abstract void Attack();    

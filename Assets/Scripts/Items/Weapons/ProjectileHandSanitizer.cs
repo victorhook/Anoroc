@@ -38,3 +38,4 @@ public class ProjectileHandSanitizer : MonoBehaviour
     }
 
 }
+

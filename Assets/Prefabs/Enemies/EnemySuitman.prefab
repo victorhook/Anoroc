@@ -321,16 +321,16 @@ MonoBehaviour:
   itemDroppedOnDeath: {fileID: 700696949531057903, guid: 63dfaca82b38cc988b99d1083d878e4d,
     type: 3}
   shotPoint: {fileID: 1382128743252550438}
-  attackDelay: 0
+  attackAnimationDelay: 1.1
+  attackDelay: 2
   xpWorth: 80
-  damage: 0
-  range: 0
-  hitpoints: 2
-  speed: 0
+  damage: 5
+  range: 10
+  hitpoints: 10
+  speed: 1
   hitMask:
     serializedVersion: 2
     m_Bits: 1024
-  startTimeBetweenShots: 0
 --- !u!50 &1382128742634738834
 Rigidbody2D:
   serializedVersion: 4
@@ -351,7 +351,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1382128742634738845
 BoxCollider2D:
   m_ObjectHideFlags: 0

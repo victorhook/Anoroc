@@ -9,6 +9,8 @@ public abstract class Item : MonoBehaviour {
 
     public SFX sfx;
 
+    public bool debug;
+
     void Awake() {
         uiText = GameObject.Find("InteractText").GetComponent<Text>();
         player = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -36,7 +38,10 @@ public abstract class Item : MonoBehaviour {
             Interact();
 
             // and remove the object
-            DeleteItem();
+            if (!debug) {
+                DeleteItem();
+            }
+            
         }
     }
 
