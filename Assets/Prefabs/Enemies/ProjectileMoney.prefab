@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2594362433405813154}
   - component: {fileID: 7754449224533093378}
-  - component: {fileID: 3325705994956363750}
+  - component: {fileID: 990290533929962092}
   - component: {fileID: 436981377}
+  - component: {fileID: 3586609845163760149}
   m_Layer: 0
   m_Name: ProjectileMoney
   m_TagString: Untagged
@@ -84,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3325705994956363750
+--- !u!114 &990290533929962092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,17 +94,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3062340239051131172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec6716525ed798f3a916a0f8be65ef94, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a55323c89ad6a2cfb088ba66f5ce47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  lifeTime: 1.5
-  distance: 0
-  damage: 14
-  destroyEffect: {fileID: 0}
-  whatIsSolid:
-    serializedVersion: 2
-    m_Bits: 1536
+  sfx: {fileID: 436981377}
 --- !u!82 &436981377
 AudioSource:
   m_ObjectHideFlags: 0
@@ -115,7 +109,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 481ca6da614868a50a9b324bb898eff3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -200,3 +194,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3586609845163760149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3062340239051131172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded3335fbdb639810a8316e377d1c71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  lifeTime: 2
+  distance: 0.1
+  destroyEffect: {fileID: 0}
+  whatIsSolid:
+    serializedVersion: 2
+    m_Bits: 1536

@@ -1783,11 +1783,6 @@ PrefabInstance:
       propertyPath: attackDelay
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5137503652045514283, guid: 4c5ad396670ad5b2f934de7e025f58d7,
-        type: 3}
-      propertyPath: hitpoints
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 5137503652045514284, guid: 4c5ad396670ad5b2f934de7e025f58d7,
         type: 3}
       propertyPath: m_Name
@@ -8001,11 +7996,6 @@ PrefabInstance:
         type: 3}
       propertyPath: attackDelay
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1382128742634738844, guid: 2a654921f18dd0c83857e9ee6a4daf1b,
-        type: 3}
-      propertyPath: hitpoints
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1382128742634738847, guid: 2a654921f18dd0c83857e9ee6a4daf1b,
         type: 3}

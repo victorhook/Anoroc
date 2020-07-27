@@ -8,9 +8,7 @@ public class MainMenu : MonoBehaviour {
     public Highscores highscores;
 
     public void Play() {
-        //menuUI.SetActive(false);
-        //Time.timeScale = 1f;
-        //gameIsPaused = false;
+        SceneManager.LoadScene("Level1");
     }
 
     public void ShowHighscores() {
@@ -26,6 +24,5 @@ public class MainMenu : MonoBehaviour {
     public void Quit() {
         Application.Quit();
     }
-
 
 }

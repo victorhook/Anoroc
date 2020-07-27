@@ -8,11 +8,7 @@ public class SuitMan : Enemy {
 
     protected override void Attack() {
         animator.SetTrigger("MoneyAttack");
-        Invoke("ThrowMoney", attackAnimationDelay);
-    }
-
-    private void ThrowMoney() {
-        Instantiate(projectile, shotPoint.position, Quaternion.identity);
+        Invoke("SendProjectile", attackAnimationDelay);
     }
 
 }

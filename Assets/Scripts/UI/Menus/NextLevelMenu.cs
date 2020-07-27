@@ -23,7 +23,6 @@ public class NextLevelMenu : MonoBehaviour {
     }
 
     public void NextLevel() {
-        print("Next level!");
         SceneManager.LoadScene("Level" + PlayerStats.GameLevel.ToString());
         menuUI.SetActive(false);
         Time.timeScale = 1f;

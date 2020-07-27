@@ -131,5 +131,15 @@ public abstract class Enemy : MonoBehaviour {
         facingRight = !facingRight;
     }
 
+    public int GetDamage() {
+        return damage;
+    }
+
+    protected void SendProjectile() {
+        GameObject obj = Instantiate(projectile, shotPoint.position, Quaternion.identity) as GameObject;
+        EnemyProjectile proj = obj.gameObject.GetComponent<EnemyProjectile>();
+        proj.SetDamage(damage);
+    }
+
     protected abstract void Attack();    
 }

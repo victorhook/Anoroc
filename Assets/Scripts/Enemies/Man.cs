@@ -12,11 +12,7 @@ public class Man : Enemy {
 
     protected override void Attack() {
         animator.SetTrigger("SneezeAttack");
-        Invoke("Sneeze", attackAnimationDelay);
-    }
-
-    private void Sneeze() {
-        Instantiate(projectile, shotPoint.position, Quaternion.identity);
+        Invoke("SendProjectile", attackAnimationDelay);
     }
 
 }

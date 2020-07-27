@@ -42,6 +42,13 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private Weapon weapon;
 
+    private void Cheat() {
+        hitpoints = 100;
+        jumpForce = 40f;
+        jumpsAllowed = 3;
+        speed = 12f;
+        shootDelay = .1f;        
+    }
 
     public static void SaveStaticVariables() {
         PlayerStats.Hitpoints = hitpoints;
@@ -90,7 +97,7 @@ public class PlayerController : MonoBehaviour {
         InitSkills();
         healthbar.SetMax(hitpoints);
         healthbar.Set(currHitpoints);
-
+        //Cheat();
         //EquipWeapon(1);
     }
 
@@ -121,7 +128,6 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
-
 
 
     public void PickUp(Item wep) {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
@@ -8,8 +9,15 @@ public class PauseMenu : MonoBehaviour {
     public static bool gameIsPaused;
 
     public GameObject pauseMenuUI;
+    public GameObject settingsUI;
+
+    public Slider musicSlider;
+    public Slider sfxSlider;
+
+    public AudioController audioController;
 
     void Awake()  {
+        settingsUI.SetActive(false);
         gameIsPaused = false;
         Resume();
     }
@@ -18,29 +26,22 @@ public class PauseMenu : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) {
 
             if (gameIsPaused) {
-                Resume();
+                if (settingsUI.activeSelf) {
+                    SaveSettings();
+                } else {
+                    Resume();
+                }
             } else {
                 Pause();
             }
         }
     }
 
-    public void Test() {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        gameIsPaused = false;
-
-        PlayerController.SaveStaticVariables();
-        ScoreHandler.SaveStaticVariables();
-        LevelHandler.SaveStaticVariables();
-
-        SceneManager.LoadScene("Level3");
-    }
-
     public void Resume() {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
+        audioController.Resume();
     }
 
     /* opens the pause-UI and freezes game time */
@@ -48,15 +49,27 @@ public class PauseMenu : MonoBehaviour {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
+        audioController.Pause();
     }
 
     public void MainMenu() {
-        print("MAIN MENU!");
+        SceneManager.LoadScene("MainMenu");
     }
 
-    public void Quit() {
-        print("QUIT");
+    public void Settings() {
+        musicSlider.value = PlayerPrefs.GetFloat("music");
+        sfxSlider.value = PlayerPrefs.GetFloat("sfx");
+        pauseMenuUI.SetActive(false);
+        settingsUI.SetActive(true);
     }
 
+    public void SaveSettings() {
+        PlayerPrefs.SetFloat("music", musicSlider.value);
+        PlayerPrefs.SetFloat("sfx", sfxSlider.value);
+        settingsUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+
+        audioController.UpdateVolume();
+    }
 
 }

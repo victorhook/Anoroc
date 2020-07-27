@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyProjectile : MonoBehaviour {
+public class EnemyProjectile : MonoBehaviour {
 
-    [SerializeField] protected float speed;
-    [SerializeField] protected float lifeTime;
-    [SerializeField] protected float distance;
-    [SerializeField] protected int damage;
+    [SerializeField] private float speed;
+    [SerializeField] private float lifeTime;
+    [SerializeField] private float distance;
+    private int damage;
 
-    [SerializeField] protected  GameObject destroyEffect;
-    [SerializeField] protected  LayerMask whatIsSolid;
+    public GameObject destroyEffect;
+    public LayerMask whatIsSolid;
     private Vector2 direction;
 
     void Awake() {
         Invoke("Die", lifeTime);
-
+        damage = 0;
         // gets the direction to the player.
         // this is used so the projectile is always aimed at the player
         Transform playerPos = GameObject.FindWithTag("player").transform;
@@ -24,18 +24,25 @@ public abstract class EnemyProjectile : MonoBehaviour {
     }
 
     void Update() {
+        print(damage);
         transform.Translate(direction * speed * Time.deltaTime);
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, 
-                                        transform.up, distance, whatIsSolid);
-        
-        if (hitInfo.collider != null) {
-            if (hitInfo.collider.CompareTag("player")) {
-                hitInfo.collider.GetComponent<PlayerController>().TakeDamage(damage);
-            }
+        if (damage > 0) {
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, 
+                                                     transform.up, distance, 
+                                                     whatIsSolid);
+            if (hitInfo.collider != null) {
+                if (hitInfo.collider.CompareTag("player")) {
+                    hitInfo.collider.GetComponent<PlayerController>().TakeDamage(damage);
+                }
             Die();
+            }
         }
-        
+
+    }
+
+    public void SetDamage(int damage) {
+        this.damage = damage;
     }
 
     void Die() {

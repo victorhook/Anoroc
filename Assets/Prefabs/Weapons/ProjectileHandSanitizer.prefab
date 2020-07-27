@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4300318738652972367}
   - component: {fileID: -1141954892108916171}
   - component: {fileID: 1070895936}
+  - component: {fileID: 5199026269395664534}
   m_Layer: 0
   m_Name: ProjectileHandSanitizer
   m_TagString: Untagged
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  lifeTime: 1.5
+  lifeTime: 3.34
   distance: 0
   damage: 10
   destroyEffect: {fileID: 0}
@@ -200,3 +201,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5199026269395664534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7945050838266579507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a55323c89ad6a2cfb088ba66f5ce47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfx: {fileID: 1070895936}

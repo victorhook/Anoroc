@@ -8,17 +8,23 @@ public class CameraController : MonoBehaviour {
     public Transform player;
     public Vector3 offset;
 
-    public float dirOffset, dirX;
+    private float dirOffset, dirX, dirY;
     public int dirChangeIterations, currIteration;
 
     private bool switching;
     private bool directionRight;
+    public bool canMoveInY;
   
-    
 
     void Update () {
         dirX = player.position.x + offset.x + dirOffset;
-        transform.position = new Vector3 (dirX, 0, offset.z);
+        if (canMoveInY) {
+            dirY = player.position.y + offset.y;
+        } else {
+            dirY = 0;
+        }
+
+        transform.position = new Vector3 (dirX, dirY, offset.z);
     }
 
 
