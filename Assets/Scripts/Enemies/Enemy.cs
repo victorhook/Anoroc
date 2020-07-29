@@ -32,29 +32,26 @@ public abstract class Enemy : MonoBehaviour {
     private Rigidbody2D rb;
 
     public LayerMask hitMask;
-    
+
+
     void Awake() {
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         playerPos = player.GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
-
-        range = 10;
-        attackDelay = 2;
-        speed = 1;
     }
 
     void Update() {
         if (Input.GetMouseButtonDown(1)) {
             Attack();
         }
-        
+
         // Detect when the player is within attack-range
         Vector2 directionToPlayer = playerPos.position - transform.position;
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, directionToPlayer,
                                                  range, hitMask);
         dirX = (directionToPlayer.x < 0) ? -1 : 1;
-        
+
 
         if (Math.Abs(directionToPlayer.x) > 1) {
             if (facingRight && dirX < 0) {
@@ -64,7 +61,7 @@ public abstract class Enemy : MonoBehaviour {
             }
         }
 
-        
+
 
         if (hitInfo) {
             // If the player is within range, we start chasing him!
@@ -75,17 +72,18 @@ public abstract class Enemy : MonoBehaviour {
             attackingPlayer = false;
         }
 
-        
+
         if (attackingPlayer) {
             if (canMove) {
                 isMoving = true;
             }
-            
+
             // Checking if it's time for a new attack or if we should wait some more.
             secsSinceLastAttack += Time.deltaTime;
             if (secsSinceLastAttack >= attackDelay) {
                 Attack();
                 secsSinceLastAttack = 0;
+                print("ATTACK!");
             }
         }
 
@@ -135,11 +133,23 @@ public abstract class Enemy : MonoBehaviour {
         return damage;
     }
 
+    public int GetHitpoints() {
+        return hitpoints;
+    }
+
+    public void SetDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public void SetHitpoints(int hitpoints) {
+        this.hitpoints = hitpoints;
+    }
+
     protected void SendProjectile() {
         GameObject obj = Instantiate(projectile, shotPoint.position, Quaternion.identity) as GameObject;
         EnemyProjectile proj = obj.gameObject.GetComponent<EnemyProjectile>();
         proj.SetDamage(damage);
     }
 
-    protected abstract void Attack();    
+    protected abstract void Attack();
 }

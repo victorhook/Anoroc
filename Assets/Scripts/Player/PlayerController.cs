@@ -16,9 +16,9 @@ public class PlayerController : MonoBehaviour {
 
     // movement & utilitiy variables
     public LayerMask whatIsGround;
-    
+
     private Transform armTransform;
-    private Transform foot1, foot2;
+    private Transform foot1, foot2, foot3;
 
     private float dirX;
     private float armOffset;
@@ -30,15 +30,16 @@ public class PlayerController : MonoBehaviour {
     private static int hitpoints, jumpsAllowed;
     private static int currHitpoints;
 
-    // flags for movement    
+    // flags for movement
     private bool isCrouching;
     private bool isMoving;
     private bool isGrounded;
     public bool facingRight;
 
-    [SerializeField] private LevelHandler levelHandler;
-    [SerializeField] private ScoreHandler scoreHandler;
-    [SerializeField] private HealthBar healthbar;
+    public LevelHandler levelHandler;
+    public ScoreHandler scoreHandler;
+    public HealthBar healthbar;
+    public DieMenu dieMenu;
 
     [SerializeField] private Weapon weapon;
 
@@ -47,15 +48,15 @@ public class PlayerController : MonoBehaviour {
         jumpForce = 40f;
         jumpsAllowed = 3;
         speed = 12f;
-        shootDelay = .1f;        
+        shootDelay = .1f;
     }
 
     public static void SaveStaticVariables() {
-        PlayerStats.Hitpoints = hitpoints;
-        PlayerStats.JumpForce = jumpForce;
-        PlayerStats.JumpsAllowed = jumpsAllowed;
-        PlayerStats.Speed = speed;
-        PlayerStats.ShootDelay = shootDelay;
+        PlayerStats.hitpoints = hitpoints;
+        PlayerStats.jumpForce = jumpForce;
+        PlayerStats.jumpsAllowed = jumpsAllowed;
+        PlayerStats.speed = speed;
+        PlayerStats.shootDelay = shootDelay;
     }
 
     public float GetShootDelay() {
@@ -64,11 +65,11 @@ public class PlayerController : MonoBehaviour {
 
     private void InitSkills() {
         // Load all the static skills.
-        hitpoints = PlayerStats.Hitpoints;
-        jumpForce = PlayerStats.JumpForce;
-        jumpsAllowed = PlayerStats.JumpsAllowed;
-        speed = PlayerStats.Speed;
-        shootDelay = PlayerStats.ShootDelay;
+        hitpoints = PlayerStats.hitpoints;
+        jumpForce = PlayerStats.jumpForce;
+        jumpsAllowed = PlayerStats.jumpsAllowed;
+        speed = PlayerStats.speed;
+        shootDelay = PlayerStats.shootDelay;
 
         // Set the rest of the skills to correct starting values.
         weaponEquipped = 0;
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour {
         armTransform = transform.Find("RightArm");
         foot1 = transform.Find("Foot1");
         foot2 = transform.Find("Foot2");
+        foot3 = transform.Find("Foot3");
     }
 
 
@@ -105,28 +107,26 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collider) {
         Transform colliderTransform = collider.transform;
 
-        RaycastHit2D hitInfo1 = Physics2D.Raycast(foot1.position, Vector3.down,
-                                                .3f, whatIsGround);
-        RaycastHit2D hitInfo2 = Physics2D.Raycast(foot2.position, Vector3.down,
-                                                .3f, whatIsGround);
-        
-        if (hitInfo1) {
-            if (hitInfo1.collider.tag == "ground" ||
-                hitInfo1.collider.tag == "Enemy") {
+        Transform[] feet = {foot1, foot2, foot3};
+        foreach(Transform foot in feet) {
+            if (TouchedGround(foot)) {
                 isGrounded = true;
                 animator.SetBool("isJumping", false);
                 jumps = 0;
+                return;
             }
-        }   
-        else if (hitInfo2) {
-            if (hitInfo2.collider.tag == "ground" ||
-                hitInfo2.collider.tag == "Enemy") {
-            isGrounded = true;
-            animator.SetBool("isJumping", false);
-            jumps = 0;
-            } 
         }
+    }
 
+    private bool TouchedGround(Transform foot) {
+        RaycastHit2D hitInfo = Physics2D.Raycast(foot.position, Vector3.down,
+                                                .3f, whatIsGround);
+        if (hitInfo)
+        {
+            return hitInfo.collider.tag == "ground" ||
+                    hitInfo.collider.tag == "Enemy";
+        }
+        return false;
     }
 
 
@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Die() {
-        print("YOU LOOSE!!!");
+        dieMenu.PlayerDied();
     }
 
 
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour {
 
             Debug.DrawRay(foot1.position, Vector3.down*.1f, Color.green);
             Debug.DrawRay(foot2.position, Vector3.down*.1f, Color.green);
-            
+
 
             // read player input
             dirX = Input.GetAxisRaw("Horizontal");
@@ -162,17 +162,17 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.C)) {
                 isCrouching = !isCrouching;
             }
-            
+
             animator.SetBool("isMoving", isMoving);
             animator.SetBool("isCrouching", isCrouching);
-            
+
             if (facingRight && dirX < 0) {
                 Flip();
             } else if (!facingRight && dirX > 0) {
                 Flip();
             }
 
-            // check for jump and if we're allowed to doublejump, we can do that 
+            // check for jump and if we're allowed to doublejump, we can do that
             if (Input.GetButtonDown("Jump")) {
                 if (isGrounded || jumpsAllowed >= 1 && jumps < jumpsAllowed) {
                     rb.AddForce(new Vector2(rb.velocity.x, jumpForce), ForceMode2D.Impulse);
@@ -230,7 +230,7 @@ public class PlayerController : MonoBehaviour {
         levelHandler.Increase(xp);
     }
     public void GiveWeapon(Weapon weapon) {
-        
+
     }
 
 
@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour {
         jumpsAllowed++;
     }
 
-    
+
 
 }
 

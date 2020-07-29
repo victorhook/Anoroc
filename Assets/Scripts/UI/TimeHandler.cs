@@ -9,6 +9,8 @@ public class TimeHandler : MonoBehaviour {
     private int minutes, seconds;
     [SerializeField] private Text uiText;
 
+    public int bonus = 100;
+
     void Start()
     {
         msCounter = 0;
@@ -18,6 +20,9 @@ public class TimeHandler : MonoBehaviour {
         msCounter += Time.deltaTime;
         if (msCounter >= 1) {
             seconds++;
+            if (bonus > 0) {
+                bonus--;
+            }
             if (seconds == 60) {
                 minutes++;
                 seconds = 0;
@@ -25,6 +30,10 @@ public class TimeHandler : MonoBehaviour {
             msCounter = 0;
         }
         uiText.text = string.Format( "Time: " + "{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public int GetBonusScore() {
+        return bonus;
     }
 
     public void Reset() {

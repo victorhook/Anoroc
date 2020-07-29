@@ -104,12 +104,12 @@ MonoBehaviour:
     type: 3}
   shotPoint: {fileID: 5137503652643179087}
   attackAnimationDelay: 1.2
-  attackDelay: 2
-  xpWorth: 40
-  canMove: 0
-  damage: 5
-  range: 10
-  hitpoints: 5
+  attackDelay: 1
+  xpWorth: 60
+  canMove: 1
+  damage: 10
+  range: 20
+  hitpoints: 40
   speed: 1
   hitMask:
     serializedVersion: 2

@@ -9,9 +9,6 @@ public class NextLevelEntry : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collider) {
         if (collider.gameObject.name == "Player") {
-            PlayerController.SaveStaticVariables();
-            ScoreHandler.SaveStaticVariables();
-            LevelHandler.SaveStaticVariables();
             nextLevelMenu.LevelComplete();
         }
     }

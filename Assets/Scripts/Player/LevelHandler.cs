@@ -13,6 +13,7 @@ public class LevelHandler : MonoBehaviour {
 
     [SerializeField] private Animator btnAnimator;
     [SerializeField] private PlayerController player;
+    public SFX sfx;
 
     private Animator levelUpAnimator;
     private static int[] skills;
@@ -37,19 +38,19 @@ public class LevelHandler : MonoBehaviour {
     // skill 3: two doublejumps
 
     private void InitSkills() {
-        skills        = PlayerStats.Skills;
-        unspentPoints = PlayerStats.UnspentPoints;
-        experience    = PlayerStats.Experience;
-        nextLevelExp  = PlayerStats.NextLevelExp;
-        level         = PlayerStats.Level;
+        skills        = PlayerStats.skills;
+        unspentPoints = PlayerStats.unspentPoints;
+        experience    = PlayerStats.experience;
+        nextLevelExp  = PlayerStats.nextLevelExp;
+        level         = PlayerStats.level;
     }
 
     public static void SaveStaticVariables() {
-        PlayerStats.Skills = skills;
-        PlayerStats.UnspentPoints = unspentPoints;
-        PlayerStats.Experience = experience;
-        PlayerStats.NextLevelExp = nextLevelExp;
-        PlayerStats.Level = level;
+        PlayerStats.skills = skills;
+        PlayerStats.unspentPoints = unspentPoints;
+        PlayerStats.experience = experience;
+        PlayerStats.nextLevelExp = nextLevelExp;
+        PlayerStats.level = level;
     }
 
     void Start() {
@@ -75,13 +76,14 @@ public class LevelHandler : MonoBehaviour {
         if (experience >= nextLevelExp) {
             LevelUp();
         }
-        
+
         UpdateUI();
     }
-    
+
 
     private void LevelUp() {
-        print("Level up!");
+        Instantiate(sfx, transform.position, Quaternion.identity);
+
         levelUpAnimator.SetTrigger("LevelUp");
 
         // get remainder of exp for next level
@@ -102,14 +104,14 @@ public class LevelHandler : MonoBehaviour {
     public bool CanSkillLevelUp(Skills skill) {
          return unspentPoints > 0 && skills[(int) skill] < 3;
      }
-     
+
     public void SkillLevelUp(Skills skill) {
         skills[(int) skill]++;
         unspentPoints--;
 
         // update correct skill on player
         switch ((int) skill) {
-            case (int) Skills.speed: 
+            case (int) Skills.speed:
                 player.IncreaseSpeed(SPEED_INCREASE);
                 break;
             case (int) Skills.hitpoints:

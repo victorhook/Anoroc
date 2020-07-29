@@ -13,6 +13,7 @@ public class Man : Enemy {
     protected override void Attack() {
         animator.SetTrigger("SneezeAttack");
         Invoke("SendProjectile", attackAnimationDelay);
+        //SendProjectile();
     }
 
 }

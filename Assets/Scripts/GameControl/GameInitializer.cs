@@ -6,21 +6,20 @@ public class GameInitializer : MonoBehaviour {
 
     void Awake() {
         /* --- Level-related --- */
-        PlayerStats.NextLevelExp = 100;
-        PlayerStats.Experience = 0;
-        PlayerStats.Level = 1;
-        PlayerStats.UnspentPoints = 0;
+        PlayerStats.nextLevelExp = 100;
+        PlayerStats.experience = 0;
+        PlayerStats.level = 1;
+        PlayerStats.unspentPoints = 0;
 
         /* --- Player-skills --- */
-        PlayerStats.Skills = new int[5] {1,1,1,1,1};
-        PlayerStats.Hitpoints = 100;
-        PlayerStats.JumpForce = 25f;
-        PlayerStats.JumpsAllowed = 1;
-        PlayerStats.Speed = 10f;
-        PlayerStats.ShootDelay = .3f;
+        PlayerStats.skills = new int[5] {1,1,1,1,1};
+        PlayerStats.hitpoints = 100;
+        PlayerStats.jumpForce = 25f;
+        PlayerStats.jumpsAllowed = 1;
+        PlayerStats.speed = 10f;
+        PlayerStats.shootDelay = .3f;
 
         /* --- Game-&-Highscore-related --- */
-        PlayerStats.Score = 0;
-        PlayerStats.GameLevel = 1;
+        PlayerStats.score = 0;
     }
 }

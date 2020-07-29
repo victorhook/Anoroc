@@ -24,12 +24,11 @@ public class EnemyProjectile : MonoBehaviour {
     }
 
     void Update() {
-        print(damage);
         transform.Translate(direction * speed * Time.deltaTime);
 
         if (damage > 0) {
-            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, 
-                                                     transform.up, distance, 
+            RaycastHit2D hitInfo = Physics2D.Raycast(transform.position,
+                                                     transform.up, distance,
                                                      whatIsSolid);
             if (hitInfo.collider != null) {
                 if (hitInfo.collider.CompareTag("player")) {

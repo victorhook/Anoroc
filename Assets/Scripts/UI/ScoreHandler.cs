@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreHandler : MonoBehaviour {
- 
+
     [SerializeField] private Text uiText;
 
     private static int score;
 
     void Start() {
-        score = PlayerStats.Score;
+        print(PlayerStats.score);
+        score = PlayerStats.score;
         UpdateUI();
     }
 
@@ -20,7 +21,7 @@ public class ScoreHandler : MonoBehaviour {
     }
 
     public void Reset() {
-        score = 0;
+        //score = 0;
     }
 
     private void UpdateUI() {
@@ -28,8 +29,9 @@ public class ScoreHandler : MonoBehaviour {
     }
 
     public static void SaveStaticVariables() {
-        PlayerStats.Score = score;
+        PlayerStats.score = score;
     }
 
 }
+
 
